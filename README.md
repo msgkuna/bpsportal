@@ -1,7 +1,10 @@
-How to use
-Clone the repository with git clone
-Copy .env.example file to .env and edit database credentials there
-Run composer install
-Run php artisan key:generate
-Run php artisan migrate --seed (it has some seeded data for your testing)
-Launch the main URL or go to /login and login with your email account with default password = qwerty123
+# BPS 6200 Portal: Portal BPS Boilerplate
+
+## Cara pakainya
+
+- Clone repository dengan __git clone__
+- Copy __.env.example__ file menjadi __.env__ dan kemudian edit data-data yang diperlukan
+- Jalankan __composer install__
+- Jalankan __php artisan key:generate__
+- Store database, akan dikirim terpisah
+- Load URL utama atau ke __/login__ dan login dengan username akun email bps, password default: qwerty123
