@@ -1,0 +1,13 @@
+{
+    "name": "Pengguna",
+    "alias": "pengguna",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Pengguna\\Providers\\PenggunaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
