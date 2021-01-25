@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 
 use Modules\Sdm\Http\Controllers\SdmController;
 use Modules\Pengguna\Http\Controllers\PenggunaController;
+use Modules\Anggaran\Http\Controllers\AnggaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/password', [ChangePasswordController::class, 'change'])->name('password.change');
     Route::patch('/password', [ChangePasswordController::class, 'update'])->name('password.update');
     Route::get('/sdm', [SdmController::class]);
+    Route::get('/anggaran', [AnggaranController::class]);
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/pengguna', [PenggunaController::class]);
     });

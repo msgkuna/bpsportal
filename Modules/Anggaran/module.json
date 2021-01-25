@@ -1,0 +1,13 @@
+{
+    "name": "Anggaran",
+    "alias": "anggaran",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Anggaran\\Providers\\AnggaranServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
