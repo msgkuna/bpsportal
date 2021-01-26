@@ -12,8 +12,8 @@ Data Pegawai
 @endcomponent
 @endsection
 @section('content')
-    <div class="container">
-        @include('partials.alert')
+<div class="container-fluid">
+    @include('partials.alert')
         <div class="card card-outline card-secondary">
             <div class="card-header border-0">
                 <h3 class="card-title">Daftar Data Pegawai</h3>

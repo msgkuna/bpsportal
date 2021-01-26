@@ -12,8 +12,8 @@ Data Pegawai
 @endcomponent
 @endsection
 @section('content')
-    <div class="container">
-        <div class="card card-outline card-secondary">
+<div class="container-fluid">
+    <div class="card card-outline card-secondary">
             <div class="card-header border-0">
                 <h3 class="card-title">Detail Data Pegawai</h3>
                 <div class="card-tools">

@@ -12,7 +12,7 @@ Data Jenjang Kepangkatan
 @endcomponent
 @endsection
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="card card-outline card-secondary">
         <div class="card-header">
             <h3 class="card-title">Daftar Data Jenjang Kepangkatan</h3>
