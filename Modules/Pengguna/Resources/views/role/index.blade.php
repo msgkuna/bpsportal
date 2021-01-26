@@ -8,7 +8,7 @@ Manajemen Pengguna
 @endslot
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-<li class="breadcrumb-item"><a href="{{ route('pengguna.index') }}">Manajemen Pengguna</a></li>
+<li class="breadcrumb-item"><a href="{{ route('index') }}">Manajemen Pengguna</a></li>
 <li class="breadcrumb-item">Manajemen Role</li>
 @endslot
 @endcomponent
@@ -27,15 +27,15 @@ Manajemen Pengguna
                     <div class="card-body">
                         <div class="form-group>
                             <label for="name">Role</label>
-                            <input name="name" type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Role Name" autofocus>
-                                @error('name')
-                                <span class="invalid-feedback">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                        </div>
+                            <input name="name" type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Role Name" autofocus required>
+                            @error('name')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                    </div>
                         <div class="form-group">
-                            <label for="name">Description</label>
+                            <label for="description">Description</label>
                             <textarea type="text" name="description" class="form-control" id="description">{{ old('description') }}</textarea>
                             @error('description')
                                 <span class="invalid-feedback">

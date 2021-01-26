@@ -15,22 +15,17 @@
                 with font-awesome or any other icon font library -->
                 <li class="nav-header">Manajemen Pengguna</li>
                 <li class="nav-item">
-                    <a href="{{url('/pengguna')}}" class="nav-link {{ (request()->is('pengguna*')) ? 'active' : '' }}">
+                    <a href="{{ route('index') }}" class="nav-link {{ (request()->is('index*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i><p>Pengguna</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('role.index') }}" class="nav-link  {{ (request()->is('role*')) ? 'active' : '' }}">
+                    <a href="{{ route('role.index') }}" class="nav-link  {{ (request()->is('pengguna/role*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-tag"></i><p>Roles</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="{{ route('role.page') }}" class="nav-link  {{ (request()->is('role*')) ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user-tag"></i><p>Livewire Roles</p>
-                    </a>
-                </li> --}}
                 <li class="nav-item">
-                    <a href="{{ route('permission.index') }}" class="nav-link  {{ (request()->is('permission*')) ? 'active' : '' }}">
+                    <a href="{{ route('permission.index') }}" class="nav-link  {{ (request()->is('pengguna/permission*')) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-shield"></i><p>Permissions</p>
                     </a>
                 </li>

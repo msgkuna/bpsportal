@@ -6,7 +6,7 @@ Manajemen Pengguna
 @endslot
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-<li class="breadcrumb-item"><a href="{{ route('pengguna.index') }}">Manajemen Pengguna</a></li>
+<li class="breadcrumb-item"><a href="{{ route('index') }}">Manajemen Pengguna</a></li>
 <li class="breadcrumb-item">Tambah Data Pengguna</li>
 @endslot
 @endcomponent
@@ -18,9 +18,9 @@ Manajemen Pengguna
             <div class="card-header border-0">
                 <h3 class="card-title">Daftar Data Pegawai</h3>
                 <div class="card-tools">
-                    <a class="btn btn-sm btn-success" href="{{ route('pengguna.index') }}"> Kembali</a>
+                    <a class="btn btn-sm btn-success" href="{{ route('index') }}"> Kembali</a>
                 </div>
-                <form action="{{ route('pengguna.create') }}" method="get">
+                <form action="{{ route('create') }}" method="get">
                     @csrf
                     <div class="input-group input-group-sm col-md-4 float-right">
                       <input type="text" name="term" placeholder="Cari nama ..." value="{{ old('term') }}" class="form-control">
@@ -30,7 +30,7 @@ Manajemen Pengguna
                     </div>
                 </form>
             </div>
-            <form action="{{ route('pengguna.store') }}" method="POST">
+            <form action="{{ route('store') }}" method="POST">
             @csrf
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover table-striped table-bordered table-sm table-valign-middle">

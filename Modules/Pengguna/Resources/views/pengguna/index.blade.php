@@ -22,7 +22,7 @@ Manajemen Pengguna
                 <h3 class="card-title">Daftar Data Pengguna</h3>
                 @can('add-user', Model::class)
                 <div class="card-tools">
-                    <a class="btn btn-sm btn-success" href="{{ route('pengguna.create') }}"><i class="fas fa-user-plus"></i> Tambah Pengguna</a>
+                    <a class="btn btn-sm btn-success" href="{{ route('create') }}"><i class="fas fa-user-plus"></i> Tambah Pengguna</a>
                 </div>
                 @endcan
             </div>
@@ -46,7 +46,7 @@ Manajemen Pengguna
                             <td style="text-align:center;"><input type="checkbox" data-id="{{ $row->nip }}" name="status" class="js-switch" {{ $row->flag == '1' ? 'checked' : '' }}></td>
                             <td style="text-align:center;">
 
-                                <form action="{{ route('pengguna.destroy', $row->nip) }}" method="POST">
+                                <form action="{{ route('destroy', $row->nip) }}" method="POST">
                                     @can('add-user-role', Model::class)
                                     <a class="btn btn-sm bg-gradient-success" title="Role Assign" href="{{ route('pengguna.show', $row->nip) }}"><i class="fas fa-user-tag"></i></a>
                                     @endcan

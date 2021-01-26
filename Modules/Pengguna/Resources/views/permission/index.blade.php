@@ -8,7 +8,7 @@ Manajemen Pengguna
 @endslot
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-<li class="breadcrumb-item"><a href="{{ route('pengguna.index') }}">Manajemen Pengguna</a></li>
+<li class="breadcrumb-item"><a href="{{ route('index') }}">Manajemen Pengguna</a></li>
 <li class="breadcrumb-item">Manajemen Permission</li>
 @endslot
 @endcomponent
@@ -28,7 +28,12 @@ Manajemen Pengguna
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Permission</label>
-                            <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}" placeholder="Permission Name" id="name" required>
+                            <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid':'' }}" placeholder="Permission Name" id="name" autofocus required>
+                            @error('name')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="name">Description</label>
