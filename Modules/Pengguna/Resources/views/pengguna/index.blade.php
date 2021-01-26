@@ -89,7 +89,7 @@ Manajemen Pengguna
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: '{{ route('pengguna.update.status') }}',
+                url: '{{ route("pengguna.update.status") }}',
                 data: {'flag': status, 'nip': userId},
                 success: function (data) {
                     console.log(data.message);
