@@ -21,6 +21,7 @@
         "maatwebsite/excel": "^3.1",
         "mhmiton/laravel-modules-livewire": "dev-master",
         "nwidart/laravel-modules": "^8.2",
+        "spatie/laravel-backup": "^6.14",
         "spatie/laravel-permission": "^3.18",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
