@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 use Modules\Anggaran\Entities\Dkmpnen;
+use Illuminate\Support\Facades\Auth;
 
 class KmpnenController extends Controller
 {
@@ -88,8 +89,8 @@ class KmpnenController extends Controller
                     'rphn2' => $kmpnen->rphn2,
                     'rphn3' => $kmpnen->rphn3,
                     'rphn4' => $kmpnen->rphn4,
-                    'created_by' => \Auth::user()->nip,
-                    'updated_by' => \Auth::user()->nip,
+                    'created_by' => Auth::user()->nip,
+                    'updated_by' => Auth::user()->nip,
                     'created_at' => \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now(),
                 ];
