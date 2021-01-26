@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use Modules\Anggaran\Entities\Dakun;
 
@@ -87,6 +88,10 @@ class AkunController extends Controller
                     'kdblokir' => $akun->kdblokir,
                     'uraiblokir' => $akun->uraiblokir,
                     'kdib' => $akun->kdib,
+                    'created_by' => Auth::user()->nip,
+                    'updated_by' => Auth::user()->nip,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ];
             }
             Dakun::insert($data); // insert ke table

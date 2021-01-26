@@ -9,7 +9,7 @@
     @endcomponent
 @endsection
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="card card-outline card-secondary">
             <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle table-sm">

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 use Modules\Anggaran\Entities\Dskmpnen;
+use Illuminate\Support\Facades\Auth;
 
 class SkmpnenController extends Controller
 {
@@ -71,6 +72,10 @@ class SkmpnenController extends Controller
                     'kdskmpnen' => $skmpnen->kdskmpnen,
                     'urskmpnen' => $skmpnen->urskmpnen,
                     'kdib' => $skmpnen->kdib,
+                    'created_by' => Auth::user()->nip,
+                    'updated_by' => Auth::user()->nip,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ];
             }
             Dskmpnen::insert($data); // insert ke table

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e73feb76104eee117f4fb6af0bdf2030",
+    "content-hash": "8c517cf0c414b93d9c25efae49539d1a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7332,6 +7332,54 @@
                 "source": "https://github.com/krlove/eloquent-model-generator/tree/1.3.6"
             },
             "time": "2020-10-03T08:18:38+00:00"
+        },
+        {
+            "name": "laracademy/generators",
+            "version": "3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracademy/generators.git",
+                "reference": "80c9b8b2bf693159d6369289b0bfb044a84922e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laracademy/generators/zipball/80c9b8b2bf693159d6369289b0bfb044a84922e9",
+                "reference": "80c9b8b2bf693159d6369289b0bfb044a84922e9",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laracademy\\Generators\\GeneratorsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laracademy\\Generators\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael McMullen",
+                    "email": "michael@laracademy.co"
+                }
+            ],
+            "description": "This package will generate a Laravel Model based on your database table itself, filling in the required fields automatically.",
+            "keywords": [
+                "generators",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laracademy/generators/issues",
+                "source": "https://github.com/laracademy/generators/tree/3.0"
+            },
+            "time": "2020-10-07T12:17:38+00:00"
         },
         {
             "name": "laravel/sail",

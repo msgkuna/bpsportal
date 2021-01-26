@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 use Modules\Anggaran\Entities\Dro;
+use Illuminate\Support\Facades\Auth;
 
 class RoController extends Controller
 {
@@ -73,6 +74,10 @@ class RoController extends Controller
                     'volsout' => $soutput->volsout,
                     'volsbk' => $soutput->volsbk,
                     'kdib' => $soutput->kdib,
+                    'created_by' => Auth::user()->nip,
+                    'updated_by' => Auth::user()->nip,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ];
             }
             Dro::insert($data); // insert ke table

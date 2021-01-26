@@ -78,6 +78,6 @@ class TugasController extends Controller
         ])->delete();
 
         return redirect()->route('tugas.index')
-                        ->with('success','Data telah di hapus');
+                        ->withSuccess('Data telah di hapus');
     }
 }

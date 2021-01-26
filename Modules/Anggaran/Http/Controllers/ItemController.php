@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 use Modules\Anggaran\Entities\Ditem;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -95,7 +96,7 @@ class ItemController extends Controller
                     'satkeg' => $item->satkeg,
                     'hargasat' => $item->hargasat,
                     'jumlah' => $item->jumlah,
-                    'jumlah2' => $item->jumlah2,
+                    'jumlah2' => empty($item->jumlah2)?0:$item->jumlah2,
                     'paguphln' => $item->paguphln,
                     'pagurmp' => $item->pagurmp,
                     'pagurkp' => $item->pagurkp,
@@ -133,6 +134,10 @@ class ItemController extends Controller
                     'kurs' => $item->kurs,
                     'indexkpjm' => $item->indexkpjm,
                     'kdib' => $item->kdib,
+                    'created_by' => Auth::user()->nip,
+                    'updated_by' => Auth::user()->nip,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ];
             }
             Ditem::insert($data); // insert ke table

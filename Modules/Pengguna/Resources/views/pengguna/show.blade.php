@@ -6,19 +6,19 @@ Manajemen Pengguna
 @endslot
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-<li class="breadcrumb-item"><a href="{{ route('pengguna.index') }}">Manajemen Pengguna</a></li>
+<li class="breadcrumb-item"><a href="{{ route('index') }}">Manajemen Pengguna</a></li>
 <li class="breadcrumb-item">Role</li>
 @endslot
 @endcomponent
 @endsection
 @section('content')
-<div class="container">
+<div class="container-fluid">
     @include('partials.alert')
     <div class="card card-outline card-secondary">
         <div class="card-header">
             <h3 class="card-title">Role</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-success" href="{{ route('pengguna.index') }}"> Kembali</a>
+                <a class="btn btn-sm btn-success" href="{{ route('index') }}"> Kembali</a>
             </div>
         </div>
         <div class="card-body table-responsive p-0">
@@ -50,20 +50,16 @@ Manajemen Pengguna
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card card-outline card-secondary">
-                            <div class="card-header">
-                                <h3 class="card-title">Available</h3>
-                            </div>
+                            <div class="card-header"><h3 class="card-title">Available</h3></div>
                             <form action="{{ route('pengguna.add.role') }}" method="post">
                             @csrf
                             <input type="hidden" name="nip" value="{{ $pengguna->nip }}">
                             <div class="card-body table-responsive">
-                                <div class="form-group">
-                                    <select multiple size="10" name="role[]" class="form-control list {{ $errors->has('role') ? 'is-invalid':'' }}" required>
-                                        @foreach ($role as $row)
-                                            <option value="{{ $row->name }}">{{ $row->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <select multiple size="10" name="role[]" class="form-control list {{ $errors->has('role') ? 'is-invalid':'' }}" required>
+                                    @foreach ($role as $row)
+                                        <option value="{{ $row->name }}">{{ $row->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary"><i class="fas fa fa-save"></i> Assign</button>
@@ -73,9 +69,7 @@ Manajemen Pengguna
                     </div>
                     <div class="col-md-6">
                         <div class="card card-outline card-secondary">
-                            <div class="card-header">
-                                <h3 class="card-title">Assigned</h3>
-                            </div>
+                            <div class="card-header"><h3 class="card-title">Assigned</h3></div>
                             <form action="{{ route('pengguna.remove.role') }}" method="post">
                             @csrf
                             <input type="hidden" name="nip" value="{{ $pengguna->nip }}">
