@@ -87,6 +87,10 @@ class AkunController extends Controller
                     'kdblokir' => $akun->kdblokir,
                     'uraiblokir' => $akun->uraiblokir,
                     'kdib' => $akun->kdib,
+                    'created_by' => \Auth::user()->nip,
+                    'updated_by' => \Auth::user()->nip,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ];
             }
             Dakun::insert($data); // insert ke table

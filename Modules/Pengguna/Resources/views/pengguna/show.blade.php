@@ -12,7 +12,7 @@ Manajemen Pengguna
 @endcomponent
 @endsection
 @section('content')
-<div class="container">
+<div class="container-fluid">
     @include('partials.alert')
     <div class="card card-outline card-secondary">
         <div class="card-header">

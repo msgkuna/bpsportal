@@ -10,7 +10,7 @@
 @endsection
 @section('content')
 @include('partials.alert')
-<div class="container">
+<div class="container-fluid">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title"><i class="nav-icon fas fa-user-lock"></i> Ganti Password</h3>

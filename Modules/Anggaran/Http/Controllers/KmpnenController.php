@@ -88,6 +88,10 @@ class KmpnenController extends Controller
                     'rphn2' => $kmpnen->rphn2,
                     'rphn3' => $kmpnen->rphn3,
                     'rphn4' => $kmpnen->rphn4,
+                    'created_by' => \Auth::user()->nip,
+                    'updated_by' => \Auth::user()->nip,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ];
             }
             Dkmpnen::insert($data); // insert ke table

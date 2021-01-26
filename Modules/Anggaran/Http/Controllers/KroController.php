@@ -83,6 +83,10 @@ class KroController extends Controller
                     'kdib' => $output->kdib,
                     'kdauto' => $output->kdauto,
                     'kdmulti' => $output->kdmulti,
+                    'created_by' => \Auth::user()->nip,
+                    'updated_by' => \Auth::user()->nip,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now(),
                 ];
             }
             Dkro::insert($data); // insert ke table
