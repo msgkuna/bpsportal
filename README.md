@@ -7,7 +7,7 @@
 - - - - -
 
 ## Cara Penggunaan
-- Clone repository dengan __git clone__
+- Clone repository dengan __git clone https://github.com/msgkuna/bpsportal.git__
 - Buat database dari SQL script yang diberikan
 - Copy file  __.env.example__ menjadi __.env__ dan isikan data-data yang diperlukan
 - Jalankan __composer install__
