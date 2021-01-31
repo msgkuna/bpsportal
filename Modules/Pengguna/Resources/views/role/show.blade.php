@@ -2,11 +2,12 @@
 @section('header')
 @component('components.header')
 @slot('title')
-Manajemen Pengguna
+<i class="fas fa-users"></i> Manajemen Pengguna
 @endslot
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-<li class="breadcrumb-item"><a href="{{ route('index') }}">Manajemen Pengguna</a></li>
+<li class="breadcrumb-item"><a href="{{ route('pengguna') }}">Manajemen Pengguna</a></li>
+<li class="breadcrumb-item"><a href="{{ route('role.index') }}">Role</a></li>
 <li class="breadcrumb-item">Assign Permission</li>
 @endslot
 @endcomponent
@@ -47,17 +48,15 @@ Manajemen Pengguna
                             <div class="card-header">
                                 <h3 class="card-title">Available</h3>
                             </div>
-                            <form action="{{ route('role.add.permission') }}" method="post">
+                            <form action="{{ route('role.assign.permission') }}" method="post">
                             @csrf
                             <input type="hidden" name="role" value="{{ $role->name }}">
                             <div class="card-body table-responsive">
-                                <div class="form-group">
-                                    <select multiple size="10" name="permission[]" class="form-control list {{ $errors->has('permission') ? 'is-invalid':'' }}" required>
-                                        @foreach ($permission as $row)
-                                            <option value="{{ $row->name }}">{{ $row->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <select multiple size="10" name="permission[]" class="form-control list {{ $errors->has('permission') ? 'is-invalid':'' }}" required>
+                                    @foreach ($permission as $row)
+                                        <option value="{{ $row->name }}">{{ $row->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="card-footer">
                                 @role('admin')
@@ -72,7 +71,7 @@ Manajemen Pengguna
                             <div class="card-header">
                                 <h3 class="card-title">Assigned</h3>
                             </div>
-                            <form action="{{ route('role.remove.permission') }}" method="post">
+                            <form action="{{ route('role.revoke.permission') }}" method="post">
                             @csrf
                             <input type="hidden" name="role" value="{{ $role->name }}">
                             <div class="card-body table-responsive">

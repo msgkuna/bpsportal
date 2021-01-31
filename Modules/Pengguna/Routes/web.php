@@ -10,21 +10,31 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::post('/add/role', 'PenggunaController@addRole')->name('pengguna.add.role');
-    Route::post('/remove/role', 'PenggunaController@removeRole')->name('pengguna.remove.role');
-    Route::get('/status/update', 'PenggunaController@updateStatus')->name('pengguna.update.status');
-    Route::get('/show/{nip}', 'PenggunaController@show')->name('pengguna.show');
-    Route::get('/', 'PenggunaController@index')->name('pengguna.index');
-    Route::get('/create', 'PenggunaController@create')->name('pengguna.create');
-    Route::put('/update', 'PenggunaController@update')->name('pengguna.update');
-    Route::delete('/destroy/{nip}', 'PenggunaController@destroy')->name('pengguna.destroy');
-    Route::get('/edit', 'PenggunaController@edit')->name('pengguna.edit');
-    Route::post('/store', 'PenggunaController@store')->name('pengguna.store');
 
-    Route::post('/role/add/permission', 'RoleController@addPermission')->name('role.add.permission');
-    Route::post('/role/remove/permission', 'RoleController@removePermission')->name('role.remove.permission');
-    Route::resource('/role', 'RoleController')->except(['create', 'edit', 'update']);
+Route::group(['middleware' => 'auth', 'prefix' => 'pengguna'], function(){
+    Route::group(['prefix'=>'user', 'as'=>'user.'], function() {
+        Route::post('assign-role', 'UserController@assignRole')->name('assign.role');
+        Route::post('revoke-role', 'UserController@revokeRole')->name('revoke.role');
+        Route::get('update-status', 'UserController@updateStatus')->name('update.status');
+        Route::get('/', 'UserController@index')->name('index');
+        Route::post('/store', 'UserController@store')->name('store');
+        Route::get('show/{nip}', 'UserController@show')->name('show');
+        Route::get('create', 'UserController@create')->name('create') ;
+        Route::delete('destroy/{nip}', 'UserController@destroy')->name('destroy');
+    });
 
-    Route::resource('/permission', 'PermissionController')->except(['create', 'show', 'edit', 'update']);
+    Route::group(['prefix'=>'role', 'as'=>'role.'], function() {
+        Route::post('assign-permission', 'RoleController@assignPermission')->name('assign.permission');
+        Route::post('revoke-permission', 'RoleController@revokePermission')->name('revoke.permission');
+        Route::get('/', 'RoleController@index')->name('index');
+        Route::post('store', 'RoleController@store')->name('store');
+        Route::delete('destroy/{id}', 'RoleController@destroy')->name('destroy');
+        Route::get('show/{id}', 'RoleController@show')->name('show');
+    });
+
+    Route::group(['prefix'=>'permission', 'as'=>'permission.'], function() {
+        Route::get('/', 'PermissionController@index')->name('index');
+        Route::post('store', 'PermissionController@store')->name('store');
+        Route::delete('destroy/{id}', 'PermissionController@destroy')->name('destroy');
+    });
 });

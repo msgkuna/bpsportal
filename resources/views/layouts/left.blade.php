@@ -13,7 +13,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-                <li class="nav-header">MODULE</li>
+                <li class="nav-header"><i class="fas fa-cubes"></i> MODULE</li>
                 <li class="nav-item">
                     <a href="{{ url('/sdm') }}" class="nav-link">
                         <i class="nav-icon fas fa-id-card"></i><p>SDM</p>
@@ -21,7 +21,7 @@
                 </li>
                 @hasrole('admin')
                 <li class="nav-item">
-                    <a href="{{ url('/admin') }}" class="nav-link">
+                    <a href="{{ url('/pengguna') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i><p>Pengguna</p>
                     </a>
                 </li>

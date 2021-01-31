@@ -3,6 +3,9 @@
 namespace Modules\Anggaran\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\CompositeKey;
+use Awobaz\Compoships\Compoships;
+use App\Traits\Blameable;
 
 /**
  * @property string $thang
@@ -84,16 +87,44 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ditem extends Model
 {
+    use CompositeKey;
+    use Compoships;
+    use Blameable;
+
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'anggaran_ditem';
+    protected $primaryKey = ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun', 'noitem'];
 
     /**
      * @var array
      */
-    protected $fillable = ['thang', 'kdjendok', 'kdsatker', 'kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdlokasi', 'kdkabkota', 'kddekon', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun', 'kdkppn', 'kdbeban', 'kdjnsban', 'kdctarik', 'register', 'carahitung', 'header1', 'header2', 'kdheader', 'noitem', 'nmitem', 'vol1', 'sat1', 'vol2', 'sat2', 'vol3', 'sat3', 'vol4', 'sat4', 'volkeg', 'satkeg', 'hargasat', 'jumlah', 'jumlah2', 'paguphln', 'pagurmp', 'pagurkp', 'kdblokir', 'blokirphln', 'blokirrmp', 'blokirrkp', 'rphblokir', 'kdcopy', 'kdabt', 'kdsbu', 'volsbk', 'volrkakl', 'blnkontrak', 'nokontrak', 'tgkontrak', 'nilkontrak', 'januari', 'pebruari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'nopember', 'desember', 'jmltunda', 'kdluncuran', 'jmlabt', 'norev', 'kdubah', 'kurs', 'indexkpjm', 'kdib'];
+    protected $fillable = ['thang', 'kdjendok', 'kdsatker', 'kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdlokasi', 'kdkabkota',
+                        'kddekon', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun', 'kdkppn', 'kdbeban', 'kdjnsban', 'kdctarik', 'register',
+                        'carahitung', 'header1', 'header2', 'kdheader', 'noitem', 'nmitem', 'vol1', 'sat1', 'vol2', 'sat2', 'vol3', 'sat3',
+                        'vol4', 'sat4', 'volkeg', 'satkeg', 'hargasat', 'jumlah', 'jumlah2', 'paguphln', 'pagurmp', 'pagurkp', 'kdblokir',
+                        'blokirphln', 'blokirrmp', 'blokirrkp', 'rphblokir', 'kdcopy', 'kdabt', 'kdsbu', 'volsbk', 'volrkakl', 'blnkontrak',
+                        'nokontrak', 'tgkontrak', 'nilkontrak', 'januari', 'pebruari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus',
+                        'september', 'oktober', 'nopember', 'desember', 'jmltunda', 'kdluncuran', 'jmlabt', 'norev', 'kdubah', 'kurs', 'indexkpjm',
+                        'kdib', 'created_by', 'created_at', 'updated_by', 'updated_at'
+                    ];
 
+    public function akun()
+    {
+        return $this->belongsTo(Dakun::class,
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun'],
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun']
+        );
+    }
+
+    public function aktivitas()
+    {
+        return $this->belongsTo(Giat::class,
+        ['kddept', 'kdunit', 'kdprogram', 'kdgiat'],
+        ['kddept', 'kdunit', 'kdprogram', 'kdgiat']
+    );
+    }
 }

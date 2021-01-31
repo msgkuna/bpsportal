@@ -2,12 +2,12 @@
 @section('header')
 @component('components.header')
 @slot('title')
-Data Pegawai
+<i class="fas fa-id-card"></i> Manajemen SDM
 @endslot
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
 <li class="breadcrumb-item"><a href="{{  url('/sdm') }}">Manajemen SDM</a></li>
-<li class="breadcrumb-item">Tambah Data Pegawai</li>
+<li class="breadcrumb-item">Data Pegawai</li>
 @endslot
 @endcomponent
 @endsection

@@ -10,7 +10,7 @@
 @endcomponent
 @endsection
 @section('content')
-<div class="container">
+<div class="container-fluid">
     @component('components.card')
     @slot('header')
         Manajemen SDM

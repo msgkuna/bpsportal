@@ -21,8 +21,8 @@ class KroController extends Controller
         $dkro = Dkro::orderBy('kdprogram', 'asc')
             ->orderBy('kdgiat','asc')
             ->orderBy('kdoutput','asc')
-            ->paginate(10);
-        return view('anggaran::upload.kro.index',compact('dkro'))
+            ->paginate(20);
+        return view('anggaran::data.kro.index',compact('dkro'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -32,7 +32,7 @@ class KroController extends Controller
      */
     public function fileUpload()
     {
-        return view('anggaran::upload.kro.upload');
+        return view('anggaran::data.kro.upload');
     }
 
     public function fileUploadPost(Request $request)
@@ -47,55 +47,60 @@ class KroController extends Controller
         $request->file->move($pathFile, $fileName);
         $xmlObject = new \SimpleXMLElement(file_get_contents($pathFile.'/'.$fileName));
 
-        DB::beginTransaction();
-        try {
-            $data=array();
-            foreach($xmlObject->c_output as $output)
-            {
-                $data[] =[
-                    'thang' => $output->thang,
-                    'kdjendok' => $output->kdjendok,
-                    'kdsatker' => $output->kdsatker,
-                    'kddept' => $output->kddept,
-                    'kdunit' => $output->kdunit,
-                    'kdprogram' => $output->kdprogram,
-                    'kdgiat' => $output->kdgiat,
-                    'kdoutput' => $output->kdoutput,
-                    'kdlokasi' => $output->kdlokasi,
-                    'kdkabkota' => $output->kdkabkota,
-                    'kddekon' => $output->kddekon,
-                    'volmin1' => $output->volmin1,
-                    'vol' => $output->vol,
-                    'volpls1' => $output->volpls1,
-                    'volpls2' => $output->volpls2,
-                    'volpls3' => $output->volpls3,
-                    'volsbk' => $output->volsbk,
-                    'rphmin1' => $output->rphmin1,
-                    'rphpls1' => $output->rphpls1,
-                    'rphpls2' => $output->rphpls2,
-                    'rphpls3' => $output->rphpls3,
-                    'sbkket' => $output->sbkket,
-                    'sbkmin1' => $output->sbkmin1,
-                    'kdsb' => $output->kdsb,
-                    'kdjoutput' => $output->kdjoutput,
-                    'thangawal' => $output->thangawal,
-                    'thangakhir' => $output->thangakhir,
-                    'kdtema' => $output->kdtema,
-                    'kdib' => $output->kdib,
-                    'kdauto' => $output->kdauto,
-                    'kdmulti' => $output->kdmulti,
-                    'created_by' => Auth::user()->nip,
-                    'updated_by' => Auth::user()->nip,
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
-                ];
+        if(!is_null($xmlObject->c_output[0])) {
+            DB::beginTransaction();
+            try {
+                $data=array();
+                foreach($xmlObject->c_output as $output)
+                {
+                    $data[] =[
+                        'thang' => $output->thang,
+                        'kdjendok' => $output->kdjendok,
+                        'kdsatker' => $output->kdsatker,
+                        'kddept' => $output->kddept,
+                        'kdunit' => $output->kdunit,
+                        'kdprogram' => $output->kdprogram,
+                        'kdgiat' => $output->kdgiat,
+                        'kdoutput' => $output->kdoutput,
+                        'kdlokasi' => $output->kdlokasi,
+                        'kdkabkota' => $output->kdkabkota,
+                        'kddekon' => $output->kddekon,
+                        'volmin1' => $output->volmin1,
+                        'vol' => $output->vol,
+                        'volpls1' => $output->volpls1,
+                        'volpls2' => $output->volpls2,
+                        'volpls3' => $output->volpls3,
+                        'volsbk' => $output->volsbk,
+                        'rphmin1' => $output->rphmin1,
+                        'rphpls1' => $output->rphpls1,
+                        'rphpls2' => $output->rphpls2,
+                        'rphpls3' => $output->rphpls3,
+                        'sbkket' => $output->sbkket,
+                        'sbkmin1' => $output->sbkmin1,
+                        'kdsb' => $output->kdsb,
+                        'kdjoutput' => $output->kdjoutput,
+                        'thangawal' => $output->thangawal,
+                        'thangakhir' => $output->thangakhir,
+                        'kdtema' => $output->kdtema,
+                        'kdib' => $output->kdib,
+                        'kdauto' => $output->kdauto,
+                        'kdmulti' => $output->kdmulti,
+                        'created_by' => Auth::user()->nip,
+                        'updated_by' => Auth::user()->nip,
+                        'created_at' => \Carbon\Carbon::now(),
+                        'updated_at' => \Carbon\Carbon::now(),
+                    ];
+                }
+                Dkro::truncate();
+                Dkro::insert($data); // insert ke table
+                DB::commit();
+                return redirect()->route('kro.index')->withSuccess('Data '.$UploadfileName.' telah berhasil diupload ke database');
+            } catch(\Throwable $e) {
+                DB::rollback();
+                throw $e;
             }
-            Dkro::insert($data); // insert ke table
-            DB::commit();
-            return redirect()->route('kro.index')->withSuccess('Data '.$UploadfileName.' telah berhasil diupload ke database');
-        } catch(\Throwable $e) {
-            DB::rollback();
-            throw $e;
+        } else {
+            return redirect()->route('kro.index')->withError('Data pada file '.$UploadfileName.' tidak yang sesuai. Upload data ke database tidak berhasil');
         }
     }
 }

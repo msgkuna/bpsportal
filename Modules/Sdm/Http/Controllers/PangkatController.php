@@ -15,8 +15,8 @@ class PangkatController extends Controller
      */
     public function __invoke()
     {
-        $pangkat = Pangkat::orderBy('pangkat_id', 'asc')->paginate(10);
-        return view('sdm::lookup.pangkat', compact('pangkat'));
+        $pangkat = Pangkat::orderBy('pangkat_id', 'asc')->paginate(20);
+        return view('sdm::master.pangkat', compact('pangkat'));
     }
 
 }

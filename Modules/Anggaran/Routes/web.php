@@ -11,47 +11,53 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth', 'prefix' => 'anggaran'], function(){
+        Route::get('dipa', 'DipaController')->name('dipa');
 
-    Route::prefix('anggaran')->group(function() {
-        Route::get('/', 'AnggaranController@index');
-
-        Route::prefix('akun')->group(function() {
-            Route::get('/', 'AkunController@index')->name('akun.index');
-            Route::get('file-upload', 'AkunController@fileUpload')->name('akun.upload');
-            Route::post('file-upload-post', 'AkunController@fileUploadPost')->name('akun.upload.post');
+        Route::group(['prefix'=>'data/kro', 'as'=>'kro.'], function() {
+            Route::get('/', 'KroController@index')->name('index');
+            Route::get('file-upload', 'KroController@fileUpload')->name('upload');
+            Route::post('file-upload-post', 'KroController@fileUploadPost')->name('upload.post');
         });
 
-        Route::prefix('item')->group(function() {
-            Route::get('/', 'ItemController@index')->name('item.index');
-            Route::get('file-upload', 'ItemController@fileUpload')->name('item.upload');
-            Route::post('file-upload-post', 'ItemController@fileUploadPost')->name('item.upload.post');
+        Route::group(['prefix'=>'data/ro', 'as'=>'ro.'], function() {
+            Route::get('/', 'RoController@index')->name('index');
+            Route::get('file-upload', 'RoController@fileUpload')->name('upload');
+            Route::post('file-upload-post', 'RoController@fileUploadPost')->name('upload.post');
         });
 
-        Route::prefix('kmpnen')->group(function() {
-            Route::get('/', 'KmpnenController@index')->name('kmpnen.index');
-            Route::get('file-upload', 'KmpnenController@fileUpload')->name('kmpnen.upload');
-            Route::post('file-upload-post', 'KmpnenController@fileUploadPost')->name('kmpnen.upload.post');
+        Route::group(['prefix'=>'data/komponen', 'as'=>'kmpnen.'], function() {
+            Route::get('/', 'KmpnenController@index')->name('index');
+            Route::get('file-upload', 'KmpnenController@fileUpload')->name('upload');
+            Route::post('file-upload-post', 'KmpnenController@fileUploadPost')->name('upload.post');
         });
 
-        Route::prefix('skmpnen')->group(function() {
-            Route::get('/', 'SkmpnenController@index')->name('skmpnen.index');
-            Route::get('file-upload', 'SkmpnenController@fileUpload')->name('skmpnen.upload');
-            Route::post('file-upload-post', 'SkmpnenController@fileUploadPost')->name('skmpnen.upload.post');
+        Route::group(['prefix'=>'data/subkomponen', 'as'=>'skmpnen.'], function() {
+            Route::get('/', 'SkmpnenController@index')->name('index');
+            Route::get('file-upload', 'SkmpnenController@fileUpload')->name('upload');
+            Route::post('file-upload-post', 'SkmpnenController@fileUploadPost')->name('upload.post');
         });
 
-        Route::prefix('kro')->group(function() {
-            Route::get('/', 'KroController@index')->name('kro.index');
-            Route::get('file-upload', 'KroController@fileUpload')->name('kro.upload');
-            Route::post('file-upload-post', 'KroController@fileUploadPost')->name('kro.upload.post');
+        Route::group(['prefix'=>'data/akun', 'as'=>'akun.'], function() {
+            Route::get('/', 'AkunController@index')->name('index');
+            Route::get('file-upload', 'AkunController@fileUpload')->name('upload');
+            Route::post('file-upload-post', 'AkunController@fileUploadPost')->name('upload.post');
         });
 
-        Route::prefix('ro')->group(function() {
-            Route::get('/', 'RoController@index')->name('ro.index');
-            Route::get('file-upload', 'RoController@fileUpload')->name('ro.upload');
-            Route::post('file-upload-post', 'RoController@fileUploadPost')->name('ro.upload.post');
+        Route::group(['prefix'=>'data/detail', 'as'=>'item.'], function() {
+            Route::get('/', 'ItemController@index')->name('index');
+            Route::get('file-upload', 'ItemController@fileUpload')->name('upload');
+            Route::post('file-upload-post', 'ItemController@fileUploadPost')->name('upload.post');
         });
 
-    });
-
+        Route::prefix('master')->group(function() {
+            Route::get('satker', 'MsatkerController')->name('msatker');
+            Route::get('dept', 'MdeptController')->name('mdept');
+            Route::get('unit', 'MunitController')->name('munit');
+            Route::get('lokasi', 'MlokasiController')->name('mlokasi');
+            Route::get('kabkota', 'MkabkotaController')->name('mkabkota');
+            Route::get('program', 'MprogramController')->name('mprogram');
+            Route::get('giat', 'MgiatController')->name('mgiat');
+            Route::get('akun', 'MakunController')->name('makun');
+        });
 });

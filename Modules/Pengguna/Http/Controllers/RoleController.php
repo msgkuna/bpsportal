@@ -44,7 +44,7 @@ class RoleController extends Controller
         return view('pengguna::role.show', compact('permission', 'role', 'role_permission'));
     }
 
-    public function addPermission(Request $request)
+    public function assignPermission(Request $request)
     {
         $items = $request->get('permission');
         $role = Role::findByName($request->role);
@@ -53,7 +53,7 @@ class RoleController extends Controller
         return redirect()->back()->with('success', 'Permission ' . $permission . ' telah ditambahkan');
     }
 
-    public function removePermission(Request $request)
+    public function revokePermission(Request $request)
     {
         $items = $request->get('permission');
         $role = Role::findByName($request->role);

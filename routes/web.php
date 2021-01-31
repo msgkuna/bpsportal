@@ -20,22 +20,27 @@ use Modules\Anggaran\Http\Controllers\AnggaranController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function() {
-    return redirect(route('login'));
-});
+// Route::get('/', function() {
+//     return redirect(route('login'));
+// });
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::middleware(['change_password'])->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('home');
-    });
+    Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [HomeController::class, 'show'])->name('profile.show');
-    Route::get('/password', [ChangePasswordController::class, 'change'])->name('password.change');
-    Route::patch('/password', [ChangePasswordController::class, 'update'])->name('password.update');
-    Route::get('/sdm', [SdmController::class]);
-    Route::get('/anggaran', [AnggaranController::class]);
-    Route::group(['middleware' => ['role:admin']], function () {
-        Route::get('/pengguna', [PenggunaController::class]);
-    });
+    Route::get('/password/change', [ChangePasswordController::class, 'change'])->name('password.change');
+    Route::post('/password', [ChangePasswordController::class, 'update'])->name('password.update');
 
+    Route::get('/sdm', [SdmController::class,'index'])->name('sdm');
+
+    Route::get('/anggaran', [AnggaranController::class, 'index'])->name('anggaran');
+
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('pengguna', [PenggunaController::class, 'index'])->name('pengguna');
+    });
+});
+
+Route::fallback(function() {
+    return 'Hm, why did you land here somehow?';
 });

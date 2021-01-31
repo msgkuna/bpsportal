@@ -16,8 +16,8 @@ class PendidikanController extends Controller
      */
     public function __invoke()
     {
-        $didik = Pendidikan::orderBy('didik_id', 'asc')->paginate(10);
-        return view('sdm::lookup.didik', compact('didik'));
+        $didik = Pendidikan::orderBy('didik_id', 'asc')->paginate(20);
+        return view('sdm::master.didik', compact('didik'));
     }
 
 }

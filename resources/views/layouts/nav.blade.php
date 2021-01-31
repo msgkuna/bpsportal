@@ -15,7 +15,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="nav-icon fas fa-user"></i> {{ Auth::user()->pegawai->nama }}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item {{ (request()->is('password')) ? 'active' : '' }}" href="{{ route('password.change') }}"><i class="fas fa-user-lock"></i> Ganti Password</a>
+                <a class="dropdown-item {{ (request()->is('password/change')) ? 'active' : '' }}" href="{{ route('password.change') }}"><i class="fas fa-user-lock"></i> Ganti Password</a>
                 <a class="dropdown-item {{ (request()->is('profile')) ? 'active' : '' }}" href="{{ route('profile.show') }}"><i class="fas fa-id-card"></i> Tentang Anda</a>
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item"><i class="nav-icon fas fa-power-off"></i> Sign Out</a>

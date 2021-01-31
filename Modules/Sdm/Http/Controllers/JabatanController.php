@@ -15,8 +15,8 @@ class JabatanController extends Controller
      */
     public function __invoke()
     {
-        $jabatan = Jabatan::orderBy('jabatan_id', 'asc')->paginate(10);
-        return view('sdm::lookup.jabatan', compact('jabatan'));
+        $jabatan = Jabatan::orderBy('jabatan_id', 'asc')->paginate(20);
+        return view('sdm::master.jabatan', compact('jabatan'));
     }
 
 }

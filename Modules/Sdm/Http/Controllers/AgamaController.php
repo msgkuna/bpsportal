@@ -14,7 +14,7 @@ class AgamaController extends Controller
      */
     public function __invoke()
     {
-        $agama = Agama::orderBy('agama_id', 'asc')->paginate(10);
-        return view('sdm::lookup.agama', compact('agama'));
+        $agama = Agama::orderBy('agama_id', 'asc')->paginate(20);
+        return view('sdm::master.agama', compact('agama'));
     }
 }

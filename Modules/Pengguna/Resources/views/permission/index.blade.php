@@ -4,11 +4,11 @@
 @section('header')
 @component('components.header')
 @slot('title')
-Manajemen Pengguna
+<i class="fas fa-users"></i> Manajemen Pengguna
 @endslot
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-<li class="breadcrumb-item"><a href="{{ route('index') }}">Manajemen Pengguna</a></li>
+<li class="breadcrumb-item"><a href="{{ route('pengguna') }}">Manajemen Pengguna</a></li>
 <li class="breadcrumb-item">Manajemen Permission</li>
 @endslot
 @endcomponent

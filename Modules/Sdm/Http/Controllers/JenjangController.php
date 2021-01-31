@@ -15,7 +15,7 @@ class JenjangController extends Controller
      */
     public function __invoke()
     {
-        $jenjang = Jenjang::orderBy('jenjang_id', 'asc')->paginate(10);
-        return view('sdm::lookup.fungsional.jenjang', compact('jenjang'));
+        $jenjang = Jenjang::orderBy('jenjang_id', 'asc')->paginate(20);
+        return view('sdm::master.fungsional.jenjang', compact('jenjang'));
     }
 }

@@ -15,8 +15,8 @@ class KawinController extends Controller
      */
     public function __invoke()
     {
-        $kawin = Kawin::orderBy('kawin_id', 'asc')->paginate(10);
-        return view('sdm::lookup.kawin', compact('kawin'));
+        $kawin = Kawin::orderBy('kawin_id', 'asc')->paginate(20);
+        return view('sdm::master.kawin', compact('kawin'));
     }
 
 }

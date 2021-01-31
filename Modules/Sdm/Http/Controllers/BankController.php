@@ -16,8 +16,8 @@ class BankController extends Controller
      */
     public function index()
     {
-        $bank = BankModel::paginate(10);
-        return view('sdm::lookup.bank.index',compact('bank'))
+        $bank = BankModel::paginate(20);
+        return view('sdm::master.bank.index',compact('bank'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +27,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        return view('sdm::lookup.bank.create');
+        return view('sdm::master.bank.create');
     }
 
     /**
@@ -62,7 +62,7 @@ class BankController extends Controller
      */
     public function edit(BankModel $bank)
     {
-        return view('sdm::lookup.bank.edit',compact('bank'));
+        return view('sdm::master.bank.edit',compact('bank'));
     }
 
     /**

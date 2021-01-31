@@ -15,8 +15,8 @@ class StatusController extends Controller
      */
     public function __invoke()
     {
-        $status = Status::orderBy('status_id', 'asc')->paginate(10);
-        return view('sdm::lookup.status', compact('status'));
+        $status = Status::orderBy('status_id', 'asc')->paginate(20);
+        return view('sdm::master.status', compact('status'));
     }
 
 }

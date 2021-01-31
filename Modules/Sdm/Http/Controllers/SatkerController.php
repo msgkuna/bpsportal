@@ -16,8 +16,8 @@ class SatkerController extends Controller
      */
     public function __invoke()
     {
-        $satker = Satker::orderBy('satker_id', 'asc')->paginate(10);
-        return view('sdm::lookup.satker', compact('satker'));
+        $satker = Satker::orderBy('satker_id', 'asc')->paginate(20);
+        return view('sdm::master.satker', compact('satker'));
     }
 
 }

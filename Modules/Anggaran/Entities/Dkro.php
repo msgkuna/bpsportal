@@ -3,6 +3,9 @@
 namespace Modules\Anggaran\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\CompositeKey;
+use Awobaz\Compoships\Compoships;
+use App\Traits\Blameable;
 
 /**
  * @property string $thang
@@ -39,16 +42,80 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Dkro extends Model
 {
+    use CompositeKey;
+    use Compoships;
+    use Blameable;
+
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'anggaran_dkro';
+    protected $primaryKey = ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput'];
 
     /**
      * @var array
      */
-    protected $fillable = ['thang', 'kdjendok', 'kdsatker', 'kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdlokasi', 'kdkabkota', 'kddekon', 'volmin1', 'vol', 'volpls1', 'volpls2', 'volpls3', 'volsbk', 'rphmin1', 'rphpls1', 'rphpls2', 'rphpls3', 'sbkket', 'sbkmin1', 'kdsb', 'kdjoutput', 'thangawal', 'thangakhir', 'kdtema', 'kdib', 'kdauto', 'kdmulti'];
+    protected $fillable = ['thang', 'kdjendok', 'kdsatker', 'kddept', 'kdunit', 'kdprogram',
+                        'kdgiat', 'kdoutput', 'kdlokasi', 'kdkabkota', 'kddekon', 'volmin1',
+                        'vol', 'volpls1', 'volpls2', 'volpls3', 'volsbk', 'rphmin1', 'rphpls1',
+                        'rphpls2', 'rphpls3', 'sbkket', 'sbkmin1', 'kdsb', 'kdjoutput', 'thangawal',
+                        'thangakhir', 'kdtema', 'kdib', 'kdauto', 'kdmulti',
+                        'created_by', 'created_at', 'updated_by', 'updated_at'
+                    ];
+
+    public function giat()
+    {
+        return $this->belongsTo(Giat::class,
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat'],
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat']
+        );
+    }
+
+    public function ro()
+    {
+        return $this->hasMany(Dro::class,
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput'],
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput']
+        );
+    }
+
+    public function mkro()
+    {
+        return $this->belongsTo(Mkro::class,
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput'],
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput']
+        );
+    }
+
+    public function mdept()
+    {
+        return $this->belongsTo(Dept::class, 'kddept', 'kddept');
+    }
+
+    public function munit()
+    {
+        return $this->belongsTo(Unit::class,
+            ['kddept', 'kdunit'],
+            ['kddept', 'kdunit']
+        );
+    }
+
+    public function msatker()
+    {
+        return $this->belongsTo(Satker::class,
+            ['kddept', 'kdunit', 'kdsatker'],
+            ['kddept', 'kdunit', 'kdsatker']
+        );
+    }
+
+    public function item()
+    {
+        return $this->hasMany(Ditem::class,
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput'],
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput'],
+        );
+    }
 
 }

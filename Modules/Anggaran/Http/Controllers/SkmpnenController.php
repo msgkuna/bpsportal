@@ -24,8 +24,8 @@ class SkmpnenController extends Controller
         ->orderBy('kdsoutput','asc')
         ->orderBy('kdkmpnen','asc')
         ->orderBy('kdskmpnen','asc')
-        ->paginate(10);
-        return view('anggaran::upload.skmpnen.index',compact('dskmpnen'))
+        ->paginate(20);
+        return view('anggaran::data.skmpnen.index',compact('dskmpnen'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -35,7 +35,7 @@ class SkmpnenController extends Controller
      */
     public function fileUpload()
     {
-        return view('anggaran::upload.skmpnen.upload');
+        return view('anggaran::data.skmpnen.upload');
     }
 
     public function fileUploadPost(Request $request)
@@ -50,40 +50,45 @@ class SkmpnenController extends Controller
         $request->file->move($pathFile, $fileName);
         $xmlObject = new \SimpleXMLElement(file_get_contents($pathFile.'/'.$fileName));
 
-        DB::beginTransaction();
-        try {
-            $data=array();
-            foreach($xmlObject->c_skmpnen as $skmpnen)
-            {
-                $data[] =[
-                    'thang' => $skmpnen->thang,
-                    'kdjendok' => $skmpnen->kdjendok,
-                    'kdsatker' => $skmpnen->kdsatker,
-                    'kddept' => $skmpnen->kddept,
-                    'kdunit' => $skmpnen->kdunit,
-                    'kdprogram' => $skmpnen->kdprogram,
-                    'kdgiat' => $skmpnen->kdgiat,
-                    'kdoutput' => $skmpnen->kdoutput,
-                    'kdlokasi' => $skmpnen->kdlokasi,
-                    'kdkabkota' => $skmpnen->kdkabkota,
-                    'kddekon' => $skmpnen->kddekon,
-                    'kdsoutput' => $skmpnen->kdsoutput,
-                    'kdkmpnen' => $skmpnen->kdkmpnen,
-                    'kdskmpnen' => $skmpnen->kdskmpnen,
-                    'urskmpnen' => $skmpnen->urskmpnen,
-                    'kdib' => $skmpnen->kdib,
-                    'created_by' => Auth::user()->nip,
-                    'updated_by' => Auth::user()->nip,
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
-                ];
+        if(!is_null($xmlObject->c_skmpnen[0])) {
+            DB::beginTransaction();
+            try {
+                $data=array();
+                foreach($xmlObject->c_skmpnen as $skmpnen)
+                {
+                    $data[] =[
+                        'thang' => $skmpnen->thang,
+                        'kdjendok' => $skmpnen->kdjendok,
+                        'kdsatker' => $skmpnen->kdsatker,
+                        'kddept' => $skmpnen->kddept,
+                        'kdunit' => $skmpnen->kdunit,
+                        'kdprogram' => $skmpnen->kdprogram,
+                        'kdgiat' => $skmpnen->kdgiat,
+                        'kdoutput' => $skmpnen->kdoutput,
+                        'kdlokasi' => $skmpnen->kdlokasi,
+                        'kdkabkota' => $skmpnen->kdkabkota,
+                        'kddekon' => $skmpnen->kddekon,
+                        'kdsoutput' => $skmpnen->kdsoutput,
+                        'kdkmpnen' => $skmpnen->kdkmpnen,
+                        'kdskmpnen' => $skmpnen->kdskmpnen,
+                        'urskmpnen' => $skmpnen->urskmpnen,
+                        'kdib' => $skmpnen->kdib,
+                        'created_by' => Auth::user()->nip,
+                        'updated_by' => Auth::user()->nip,
+                        'created_at' => \Carbon\Carbon::now(),
+                        'updated_at' => \Carbon\Carbon::now(),
+                    ];
+                }
+                Dskmpnen::truncate();
+                Dskmpnen::insert($data); // insert ke table
+                DB::commit();
+                return redirect()->route('skmpnen.index')->withSuccess('Data '.$UploadfileName.' telah berhasil diupload ke database');
+            } catch(\Throwable $e) {
+                DB::rollback();
+                throw $e;
             }
-            Dskmpnen::insert($data); // insert ke table
-            DB::commit();
-            return redirect()->route('skmpnen.index')->withSuccess('Data '.$UploadfileName.' telah berhasil diupload ke database');
-        } catch(\Throwable $e) {
-            DB::rollback();
-            throw $e;
+        } else {
+            return redirect()->route('skmpnen.index')->withError('Data pada file '.$UploadfileName.' tidak yang sesuai. Upload data ke database tidak berhasil');
         }
     }
 }

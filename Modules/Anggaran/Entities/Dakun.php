@@ -3,6 +3,9 @@
 namespace Modules\Anggaran\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\CompositeKey;
+use Awobaz\Compoships\Compoships;
+use App\Traits\Blameable;
 
 /**
  * @property string $thang
@@ -39,16 +42,46 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Dakun extends Model
 {
+    use CompositeKey;
+    use Compoships;
+    use Blameable;
+
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'anggaran_dakun';
+    protected $primaryKey = ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun'];
 
     /**
      * @var array
      */
-    protected $fillable = ['thang', 'kdjendok', 'kdsatker', 'kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdlokasi', 'kdkabkota', 'kddekon', 'kdsoutput', 'kdkmpnen', 'kdakun', 'kdkppn', 'kdbeban', 'kdjnsban', 'kdctarik', 'register', 'carahitung', 'prosenphln', 'prosenrkp', 'prosenrmp', 'kppnrkp', 'kppnrmp', 'kppnphln', 'regdam', 'kdluncuran', 'kdblokir', 'uraiblokir', 'kdib'];
+    protected $fillable = ['thang', 'kdjendok', 'kdsatker', 'kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdlokasi',
+                    'kdkabkota', 'kddekon', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun', 'kdkppn', 'kdbeban', 'kdjnsban',
+                    'kdctarik', 'register', 'carahitung', 'prosenphln', 'prosenrkp', 'prosenrmp', 'kppnrkp', 'kppnrmp',
+                    'kppnphln', 'regdam', 'kdluncuran', 'kdblokir', 'uraiblokir', 'kdib',
+                    'created_by', 'created_at', 'updated_by', 'updated_at'
+                ];
 
+    public function subkomponen()
+    {
+        return $this->belongsTo(Dskmpnen::class,
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen'],
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen']
+        );
+    }
+
+    public function detail()
+    {
+        return $this->hasMany(Ditem::class,
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun'],
+            ['kddept', 'kdunit', 'kdprogram', 'kdgiat', 'kdoutput', 'kdsoutput', 'kdkmpnen', 'kdskmpnen', 'kdakun']
+        );
+    }
+
+    public function bas()
+    {
+        return $this->belongsTo(Makun::class, 'kdakun', 'kdakun');
+    }
 }

@@ -18,10 +18,10 @@ class TugasController extends Controller
      */
     public function index()
     {
-        $pimpinan = TugasModel::where('jabatan_id','1')->paginate(10);
-        $administrator = TugasModel::where('jabatan_id','2')->paginate(10);
-        $fungsional = TugasModel::where('jabatan_id','3')->paginate(10);
-        return view('sdm::lookup.tugas.index',compact('pimpinan', 'administrator', 'fungsional'));
+        $pimpinan = TugasModel::where('jabatan_id','1')->paginate(20);
+        $administrator = TugasModel::where('jabatan_id','2')->paginate(20);
+        $fungsional = TugasModel::where('jabatan_id','3')->paginate(20);
+        return view('sdm::master.tugas.index',compact('pimpinan', 'administrator', 'fungsional'));
     }
 
     /**
@@ -32,7 +32,7 @@ class TugasController extends Controller
     {
         $fungsional = Fungsional::orderBy('fungsional_id', 'ASC')->get();
         $jenjang = Jenjang::orderBy('jenjang_id', 'ASC')->get();
-        return view('sdm::lookup.tugas.create',[
+        return view('sdm::master.tugas.create',[
             'fungsional' => $fungsional,
             'jenjang' => $jenjang
         ]);

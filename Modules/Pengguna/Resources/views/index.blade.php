@@ -10,14 +10,17 @@
 @endcomponent
 @endsection
 @section('content')
-<div class="container">
-    @component('components.card')
-    @slot('header')
-        Manajemen Pengguna
-    @endslot
-    @slot('body')
-        This view is loaded from module: {!! config('pengguna.name') !!}
-    @endslot
-    @endcomponent
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-9">
+            @widget('Users\UserLastLogin')
+            {{-- @widget('\App\Http\Widgets\Users', $config)
+            {{ Widget::userLastLogin() }} --}}
+        </div>
+        <div class="col-3">
+            @widget('Users\UserRegistration')
+            {{-- {{ Widget::userRegistration() }} --}}
+        </div>
+    </div>
 </div>
 @endsection

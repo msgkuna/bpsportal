@@ -25,8 +25,8 @@ class AkunController extends Controller
         ->orderBy('kdkmpnen','asc')
         ->orderBy('kdskmpnen','asc')
         ->orderBy('kdakun','asc')
-        ->paginate(10);
-        return view('anggaran::upload.akun.index',compact('dakun'))
+        ->paginate(20);
+        return view('anggaran::data.akun.index',compact('dakun'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -36,7 +36,7 @@ class AkunController extends Controller
      */
     public function fileUpload()
     {
-        return view('anggaran::upload.akun.upload');
+        return view('anggaran::data.akun.upload');
     }
 
     public function fileUploadPost(Request $request)
@@ -50,56 +50,60 @@ class AkunController extends Controller
         $pathFile = public_path('temp');
         $request->file->move($pathFile, $fileName);
         $xmlObject = new \SimpleXMLElement(file_get_contents($pathFile.'/'.$fileName));
-
-        DB::beginTransaction();
-        try {
-            $data=array();
-            foreach($xmlObject->c_akun as $akun)
-            {
-                $data[] =[
-                    'thang' => $akun->thang,
-                    'kdjendok' => $akun->kdjendok,
-                    'kdsatker' => $akun->kdsatker,
-                    'kddept' => $akun->kddept,
-                    'kdunit' => $akun->kdunit,
-                    'kdprogram' => $akun->kdprogram,
-                    'kdgiat' => $akun->kdgiat,
-                    'kdoutput' => $akun->kdoutput,
-                    'kdlokasi' => $akun->kdlokasi,
-                    'kdkabkota' => $akun->kdkabkota,
-                    'kddekon' => $akun->kddekon,
-                    'kdsoutput' => $akun->kdsoutput,
-                    'kdkmpnen' => $akun->kdkmpnen,
-                    'kdskmpnen' => $akun->kdskmpnen,
-                    'kdakun' => $akun->kdakun,
-                    'kdkppn' => $akun->kdkppn,
-                    'kdbeban' => $akun->kdbeban,
-                    'kdjnsban' => $akun->kdjnsban,
-                    'kdctarik' => $akun->kdctarik,
-                    'register' => $akun->register,
-                    'carahitung' => $akun->carahitung,
-                    'prosenphln' => $akun->prosenphln,
-                    'prosenrmp' => $akun->prosenrmp,
-                    'kppnrkp' => $akun->kppnrkp,
-                    'kppnrmp' => $akun->kppnrmp,
-                    'kppnphln' => $akun->kppnphln,
-                    'regdam' => $akun->regdam,
-                    'kdluncuran' => $akun->kdluncuran,
-                    'kdblokir' => $akun->kdblokir,
-                    'uraiblokir' => $akun->uraiblokir,
-                    'kdib' => $akun->kdib,
-                    'created_by' => Auth::user()->nip,
-                    'updated_by' => Auth::user()->nip,
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
-                ];
+        if(!is_null($xmlObject->c_akun[0])) {
+            DB::beginTransaction();
+            try {
+                $data=array();
+                foreach($xmlObject->c_akun as $akun)
+                {
+                    $data[] =[
+                        'thang' => $akun->thang,
+                        'kdjendok' => $akun->kdjendok,
+                        'kdsatker' => $akun->kdsatker,
+                        'kddept' => $akun->kddept,
+                        'kdunit' => $akun->kdunit,
+                        'kdprogram' => $akun->kdprogram,
+                        'kdgiat' => $akun->kdgiat,
+                        'kdoutput' => $akun->kdoutput,
+                        'kdlokasi' => $akun->kdlokasi,
+                        'kdkabkota' => $akun->kdkabkota,
+                        'kddekon' => $akun->kddekon,
+                        'kdsoutput' => $akun->kdsoutput,
+                        'kdkmpnen' => $akun->kdkmpnen,
+                        'kdskmpnen' => $akun->kdskmpnen,
+                        'kdakun' => $akun->kdakun,
+                        'kdkppn' => $akun->kdkppn,
+                        'kdbeban' => $akun->kdbeban,
+                        'kdjnsban' => $akun->kdjnsban,
+                        'kdctarik' => $akun->kdctarik,
+                        'register' => $akun->register,
+                        'carahitung' => $akun->carahitung,
+                        'prosenphln' => $akun->prosenphln,
+                        'prosenrmp' => $akun->prosenrmp,
+                        'kppnrkp' => $akun->kppnrkp,
+                        'kppnrmp' => $akun->kppnrmp,
+                        'kppnphln' => $akun->kppnphln,
+                        'regdam' => $akun->regdam,
+                        'kdluncuran' => $akun->kdluncuran,
+                        'kdblokir' => $akun->kdblokir,
+                        'uraiblokir' => $akun->uraiblokir,
+                        'kdib' => $akun->kdib,
+                        'created_by' => Auth::user()->nip,
+                        'updated_by' => Auth::user()->nip,
+                        'created_at' => \Carbon\Carbon::now(),
+                        'updated_at' => \Carbon\Carbon::now(),
+                    ];
+                }
+                Dakun::truncate();
+                Dakun::insert($data); // insert ke table
+                DB::commit();
+                return redirect()->route('akun.index')->withSuccess('Data '.$UploadfileName.' telah berhasil diupload ke database');
+            } catch(\Throwable $e) {
+                DB::rollback();
+                throw $e;
             }
-            Dakun::insert($data); // insert ke table
-            DB::commit();
-            return redirect()->route('akun.index')->withSuccess('Data '.$UploadfileName.' telah berhasil diupload ke database');
-        } catch(\Throwable $e) {
-            DB::rollback();
-            throw $e;
+        } else {
+            return redirect()->route('akun.index')->withError('Data pada file '.$UploadfileName.' tidak yang sesuai. Upload data ke database tidak berhasil');
         }
     }
 

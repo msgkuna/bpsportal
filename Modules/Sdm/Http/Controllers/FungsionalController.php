@@ -16,7 +16,7 @@ class FungsionalController extends Controller
      */
     public function __invoke()
     {
-        $fungsional = Fungsional::orderBy('fungsional_id', 'asc')->paginate(10);
-        return view('sdm::lookup.fungsional.index', compact('fungsional'));
+        $fungsional = Fungsional::orderBy('fungsional_id', 'asc')->paginate(20);
+        return view('sdm::master.fungsional.index', compact('fungsional'));
     }
 }
