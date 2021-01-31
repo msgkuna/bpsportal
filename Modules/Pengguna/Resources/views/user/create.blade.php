@@ -7,7 +7,7 @@
 @slot('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
 <li class="breadcrumb-item"><a href="{{ route('pengguna') }}">Manajemen Pengguna</a></li>
-<li class="breadcrumb-item"><a href="{{ route('user') }}">Data User</a></li>
+<li class="breadcrumb-item"><a href="{{ route('user.index') }}">Data User</a></li>
 <li class="breadcrumb-item">Tambah Data</li>
 @endslot
 @endcomponent

@@ -80,7 +80,7 @@ class UserController extends Controller
             foreach($users as $user) {
                 $user->assignRole('pengguna'); // assign role ke user baru
             }
-            return redirect()->route('user')->withSuccess('Data telah ditambahkan.');
+            return redirect()->route('user.index')->withSuccess('Data telah ditambahkan.');
         } else {
             return back()->withError('Harus ada data yang dipilih.');
         }
@@ -136,7 +136,7 @@ class UserController extends Controller
         $user = User::whereNip($nip)->first();
         $user->syncRoles([]); // hapus semua role yang dimiliki oleh user tsb
         $user->delete(); // hapus user
-        return redirect()->route('user')
+        return redirect()->route('user.index')
                 ->with('success','Data telah di hapus');
     }
 
