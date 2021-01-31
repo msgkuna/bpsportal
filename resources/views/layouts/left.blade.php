@@ -28,27 +28,12 @@
                 @endhasrole
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-graduation-cap"></i><p>Pengetahuan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-basket"></i><p>Keuangan</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('/anggaran') }}" class="nav-link">
                         <i class="nav-icon fas fa-balance-scale"></i><p>Anggaran</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-calendar-alt"></i><p>Kegiatan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-line"></i><p>Kinerja</p>
                     </a>
                 </li>
             </ul>
