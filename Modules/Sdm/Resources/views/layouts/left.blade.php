@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
-        <img src="{{ asset('/images/logo.png')}}" alt="BPS Logo" class="brand-image  elevation-3">
+        <img src="{{ asset('/images/logo.png')}}" alt="BPS Logo" class="brand-image">
         <span class="logo-lg">{{ config('app.name', 'Laravel') }}</span>
     </a>
 
